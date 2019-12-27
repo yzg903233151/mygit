@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>添加</title>
+    <link rel="stylesheet" type="text/css" href="/csss/layui.css"/>
+</head>
+<body class="childrenBody">
+<form class="layui-form" action="/updates" method="post" th:each="lis : ${li}">
+
+
+    <div class="layui-inline">
+        <label class="layui-form-label">部门名称</label>
+        <div class="layui-input-inline">
+            <input class="layui-input newsAuthor" id="userSection" name="userSection" lay-verify="required" placeholder="部门名称" type="text" th:value="${lis.userSection}">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">部门职位</label>
+            <div class="layui-input-inline">
+                <input class="layui-input newsAuthor" id="userPosition" name="userPosition" lay-verify="required" placeholder="部门职位" type="text" th:value="${lis.userPosition}">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">工资</label>
+            <div class="layui-input-inline">
+                <input class="layui-input newsAuthor" id="userPath" name="userPath" lay-verify="required" placeholder="工资" type="text" th:value="${lis.userPath}" >
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">入职角色</label>
+            <div class="layui-input-inline">
+                <input class="layui-input newsAuthor" id="rejiaos" name="rejiaos" lay-verify="required" placeholder="入职角色" type="text" th:value="${lis.rejiaos}">
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" type="submit">立即修改</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+</body>
+</html>

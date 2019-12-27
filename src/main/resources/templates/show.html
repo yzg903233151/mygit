@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="/css/layui.css"/>
+</head>
+<body>
+
+<div id="app">
+    <div class="layui-bg-green">
+        添加品牌
+    </div>
+    <form class="layui-form" action="/show" method="post">
+        <label class="layui-form-label">单行输入框</label>
+        <div class="layui-input-block">
+            <input type="text" name="userName" lay-verify="title" autocomplete="off" placeholder="请输入昵称" class="layui-input">
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button type="submit" class="layui-btn">查询</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+    <table class="layui-table">
+        <tr>
+            <th>员工姓名</th>
+            <th>员工年龄</th>
+            <th>部门名称</th>
+            <th>工作经验</th>
+            <th>部门职位</th>
+            <th>入职日期</th>
+            <th>工资</th>
+            <th colspan="2">操作</th>
+
+        </tr>
+        <tr th:each="li : ${tablelist.list}">
+            <td th:text="${li.userName}"></td>
+            <td th:text="${li.userAge}"></td>
+            <td th:text="${li.userSection}"></td>
+            <td th:text="${li.regzjy}"></td>
+            <td th:text="${li.userPosition}"></td>
+            <td th:text="${#dates.format(li.redaterz,'yyyy年MM月dd日')}"></td>
+            <td th:text="${li.userPath}"></td>
+            <td>
+                <a th:onclick="onclicks([[${li.id}]])">删除</a>
+            </td>
+
+            <td>
+                <a th:href="@{/update(id=${li.id})}" target="myiframe">修改</a>
+            </td>
+        </tr>
+
+        <div style="position: absolute;top: 250px;">
+            <a th:href="@{'/show?pageIndex='+1}">首页|</a>
+
+            <div th:switch="${tablelist.currentPage}" style="display: inline">
+                <div class="logo" th:case="1" style="display: inline">
+                    <a th:href="@{'/show?pageIndex='+${tablelist.currentPage-1}}"onclick="return false">上一页</a>
+                </div>
+                <div class="logo" th:case="*" style="display: inline">
+                    <a th:href="@{'/show?pageIndex='+${tablelist.currentPage-1}}" >上一页</a>
+
+                </div>
+
+                <div th:switch="${tablelist.currentPage}" style="display: inline">
+                    <div class="logo" th:case="${tablelist.getTotalPage()}" style="display: inline">
+
+                        <a th:href="@{'/show?pageIndex='+${tablelist.currentPage+1}}"onclick="return false">下一页</a>
+                    </div>
+                    <div class="logo" th:case="*" style="display: inline">
+
+                        <a th:href="@{'/show?pageIndex='+${tablelist.currentPage+1}}" >下一页</a>
+
+                    </div>
+                </div>
+
+                <a th:href="@{/show(pageIndex=${tablelist.getTotalPage()})}">末页</a>
+                <label>第<label th:text="${tablelist.currentPage}"></label>页/共<label th:text="${tablelist.getTotalPage()}"></label>页(<label th:text="${tablelist.totalCount}"></label>条件记录)</label>
+            </div>
+        </div>
+    </table>
+</div>
+<script type="text/javascript" src="/js/jquery-1.12.4.js"/>
+
+<script type="text/javascript">
+
+    function onclicks(id) {
+        $.ajax({
+            url:"/del",
+            type:"post",
+            data:{
+
+                id:id
+            },
+            dataType:"json",
+            success:function(data){
+                if(data>0){
+
+                    location.reload();
+                    alert("删除成功！")
+                }else{
+
+                }
+            },error:function(){
+
+                alert("网络异常,请稍后在试");
+            }
+        });
+    }
+</script>
+</body>
+</html>

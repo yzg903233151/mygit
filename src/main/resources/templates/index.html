@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>css滤镜</title>
+    <link rel="stylesheet" type="text/css" href="/css/layui.css"/>
+    <style type="text/css">
+        * {
+            margin: 0px;
+            padding: 0px;
+            font-size: 16px;
+            font-family: 微软雅黑;
+        }
+        html,body,.mainbox{
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        .mainbox header{
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 55px;
+            background:dodgerblue;
+            z-index: 3;
+            line-height: 55px;
+        }
+        .mainbox .left{
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 210px;
+            background: dimgrey;
+            z-index: 2;
+        }
+        .mainbox .right{
+            position: absolute;
+            top: 55px;
+            padding-left: 210px;
+            background: #efe9e9;
+            width: 100%;
+            box-sizing:border-box;
+            overflow: hidden;
+        }
+        .mainbox .right .rightbox{
+            /*overflow-y:scroll;*/
+        }
+        .mainbox .right .rightbox .rightcon p{
+            text-align: center;
+        }
+        footer{
+            background:gray;
+            height: 40px;
+            line-height: 40px;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            z-index: 5;
+        }
+        footer p,header p,.left p{
+            text-align: center;
+            font-size: 16px;
+            color: #fff;
+        }
+        .left p{
+            margin-top:80px;
+        }
+    </style>
+</head>
+<body>
+<div class="mainbox">
+    <header>
+        <p>😃(‾◡◝)某某公司</p>
+    </header>
+    <div class="left">
+        <p>
+            <span>(*^▽^*)操作控制台(●'◡'●)</span>
+            </br>
+            </br>
+        </p>
+        <ul class="layui-nav layui-tree">
+
+            <li class="layui-nav-item">
+
+                <a href="/show" target="myiframe">&nbsp;&nbsp;人员信息的查询</a>
+
+                <a href="/recordlis" target="myiframe">&nbsp;&nbsp;详细信息</a>
+
+            </li>>
+
+
+        </ul>
+
+
+
+
+    </div>
+    <div class="right" id="right">
+
+        <iframe src="/show" frameborder="0" scrolling="yes" width="100%" height="100%" name="myiframe"></iframe>
+    </div>
+</div>
+<footer>
+    <p>这里是底部</p>
+</footer>
+<script type="text/javascript">
+    var viewH = document.documentElement.clientHeight;
+    console.log(viewH)
+    var right = document.getElementById("right");
+    right.style.height = (viewH - 95)+"px";
+</script>
+</body>
+</html>

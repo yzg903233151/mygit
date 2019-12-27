@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.yzg.company.dao.CompanyMapper">
+    <select id="count" resultType="int">
+        SELECT COUNT(1) FROM record r,USER u WHERE r.`userId`=u.`id`
+    </select>
+    
+    <select id="userShow" resultType="com.yzg.company.entity.User">
+        SELECT * FROM `infoviews`
+
+        <choose>
+            <when test="userName != null and userName != ''">
+                WHERE userName LIKE CONCAT('%',#{userName},'%')
+                LIMIT #{currentpages},#{pageSize}
+            </when>
+
+            <otherwise>
+                LIMIT #{currentpages},#{pageSize}
+            </otherwise>
+        </choose>
+    </select>
+
+    <delete id="del" parameterType="com.yzg.company.entity.User" statementType="CALLABLE">
+        {call deluser(#{id,jdbcType = INTEGER,mode = IN})}
+    </delete>
+
+    <select id="userList" resultType="com.yzg.company.entity.User" parameterType="com.yzg.company.entity.User">
+          SELECT `user`.`userSection` ,`user`.userPosition,`user`.`userPath`,`record`.`rejiaos` FROM `record`,`user` WHERE `record`.`userId`=`user`.`id` AND `user`.`id`=#{id}
+    </select>
+
+     <update id="update_" parameterType="com.yzg.company.entity.User" statementType="CALLABLE">
+         {call update_(#{rejiaos,jdbcType=VARCHAR,mode=IN},#{id,jdbcType=INTEGER,mode=IN},#{userSection,jdbcType=VARCHAR,mode=IN},#{userPosition,jdbcType=VARCHAR,mode=IN},#{userPath,jdbcType=DOUBLE,mode=IN})}
+     </update>
+</mapper>
